@@ -1,18 +1,41 @@
+import editsvg from "../assets/edit.svg";
+import savesvg from "../assets/save.svg";
 
-function Education({schoolName,studyTitle,studyDate,changeSchoolName,changeStudyTitle,changeStudyDate,edit}){
+
+function Education({schoolName,studyTitle,studyDate,changeSchoolName,changeStudyTitle,changeStudyDate,edit,toggleEdit,editEducation}){
     if(edit){
-        return(
-            <div className="label">
-                <label htmlFor="schoolName">School Name: </label>
-                <input id="schoolName" value={schoolName} onChange={changeSchoolName}/><br/>
-    
-                <label htmlFor="title">Title of Study: </label>
-                <input id="title" value={studyTitle} onChange={changeStudyTitle}/><br/>
-    
-                <label htmlFor="date">Date of Study: </label>
-                <input id="date" type="date" value={studyDate} onChange={changeStudyDate}/>
-            </div>
-        )
+        if(editEducation){
+            return(
+                <div id="education">
+                    <p className="Title">Educational Details</p>
+                    <div className="label">
+                        <input id="schoolName" className="educationInput" placeholder="School Name" value={schoolName} onChange={changeSchoolName}/><br/>
+            
+                        <input id="title" className="educationInput" placeholder="Title of Study" value={studyTitle} onChange={changeStudyTitle}/><br/>
+            
+                        <input id="date" className="educationInput" type="date" value={studyDate} onChange={changeStudyDate}/>
+                    </div>
+                    <p id="educationError" className="error"></p>
+                    <img src={savesvg} className="savesvg" id="saveEducation" onClick={toggleEdit} alt="Save"/>
+                </div>
+            )
+        }
+        else{
+            return(
+                <div id="education">
+                    <p className="Title">Educational Details</p>
+                    <div className="label">
+                        <input id="schoolName" className="educationInput" placeholder="School Name" value={schoolName} onChange={changeSchoolName} disabled/><br/>
+            
+                        <input id="title" className="educationInput" placeholder="Title of Study" value={studyTitle} onChange={changeStudyTitle} disabled/><br/>
+            
+                        <input id="date" className="educationInput" type="date" value={studyDate} onChange={changeStudyDate} disabled/>
+                    </div>
+                    <img src={editsvg} className="editsvg" id="editEducation" onClick={toggleEdit} alt="Edit"/>
+                </div>
+            )
+        }
+        
     }
     else{
         return(

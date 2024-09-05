@@ -27,6 +27,16 @@ body{
     margin:30px 50px;
 }
 
+body > div{
+    font-size: 30px;
+    font-family: martian-medium;
+}
+
+.Title{
+    font-size: 25px;
+    margin:20px 0px;
+}
+
 #divName{
     display:flex;
     align-items: center;
@@ -107,11 +117,6 @@ body{
     background-color:black;
 }
 
-.label{
-    font-size: 20px;
-    font-family: roboto-medium;
-}
-
 .label input{
     font-size: 20px;
     padding:8px;
@@ -123,5 +128,46 @@ body{
 
 #responsiblities{
     font-size: 15px;
-    font-family: roboto-regular;
+}
+
+img{
+    height: 35px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.editsvg{
+    margin-right: 10px;
+}
+
+#toLabel{
+    font-size: 20px;
+}
+
+#personal{
+    padding:10px;
+    border:8px solid rgb(27, 175, 175);
+    width:500px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+#education{
+    padding:10px;
+    border:8px solid rgb(27, 175, 175);
+    width:500px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+#experience{
+    padding:10px;
+    border:8px solid rgb(27, 175, 175);
+    width:1000px;
+    border-radius: 20px;
+}
+
+.error{
+    font-size: 10px;
+    color:red;
 }

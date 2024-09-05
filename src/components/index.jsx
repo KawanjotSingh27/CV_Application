@@ -20,13 +20,20 @@ function Main(){
     const [jobDateEnd,setJobDateEnd]=useState("");
 
     const [edit,setEdit]=useState(true);
+    const [editPersonal,setEditPersonal]=useState(true);
+    const [editEducation,setEditEducation]=useState(true);
+    const [editExperience,setEditExperience]=useState(true);
+
 
     function changeName(e){
         setName(e.target.value);
     }
 
     function changeEmail(e){
+        const emailInput=e.target;
         setEmail(e.target.value);
+        
+        emailInput.setCustomValidity('');
     }
 
     function changeNumber(e){
@@ -69,9 +76,38 @@ function Main(){
         setEdit(true);
     }
 
+    function toggleEditPersonal(){
+        setEditPersonal(!editPersonal);
+    }
+
+    function toggleEditEducation(){
+        setEditEducation(!editEducation);
+    }
+
+    function toggleEditExperience(){
+        setEditExperience(!editExperience);
+    }
+
     function submitForm(){
-        if(!email.includes("@")){
-            alert("Please enter a valid email address");
+        const emailInput = document.querySelector('input[type="email"]');
+        const personalError=document.querySelector("#personalError");
+        const educationError=document.querySelector("#educationError");
+        const experienceError=document.querySelector("#experienceError");
+    
+        if (!emailInput.checkValidity()) {
+            emailInput.setCustomValidity("Invalid email address");
+            emailInput.reportValidity(); // This will show the validation error message
+        } else {
+            emailInput.setCustomValidity(""); // Clear the custom error
+        }
+        if(editPersonal){
+            personalError.textContent="Please save the above section first";
+        }
+        if(editEducation){
+            educationError.textContent="Please save the above section first";
+        }
+        if(editExperience){
+            experienceError.textContent="Please save the above section first";
         }
         else{
             setEdit(false);
@@ -80,12 +116,13 @@ function Main(){
 
     return(
     <>
-        <General name={name} email={email} number={number} changeName={changeName} changeEmail={changeEmail} changeNumber={changeNumber} edit={edit}/>
-        <Education schoolName={schoolName} studyTitle={studyTitle} studyDate={studyDate} changeSchoolName={changeSchoolName} changeStudyTitle={changeStudyTitle} changeStudyDate={changeStudyDate} edit={edit}/>
-        <Experience companyName={companyName} positionTitle={positionTitle} responsibilities={responsibilities} jobDateStart={jobDateStart} jobDateEnd={jobDateEnd} changeCompanyName={changeCompanyName} changePositionTitle={changePositionTitle} changeResponsibilties={changeResponsibilties} changeJobDateStart={changeJobDateStart} changeJobDateEnd={changeJobDateEnd} edit={edit} />
+        <General name={name} email={email} number={number} changeName={changeName} changeEmail={changeEmail} changeNumber={changeNumber} edit={edit} toggleEdit={toggleEditPersonal} editPersonal={editPersonal}/>
+        <Education schoolName={schoolName} studyTitle={studyTitle} studyDate={studyDate} changeSchoolName={changeSchoolName} changeStudyTitle={changeStudyTitle} changeStudyDate={changeStudyDate} edit={edit} toggleEdit={toggleEditEducation} editEducation={editEducation}/>
+        <Experience companyName={companyName} positionTitle={positionTitle} responsibilities={responsibilities} jobDateStart={jobDateStart} jobDateEnd={jobDateEnd} changeCompanyName={changeCompanyName} changePositionTitle={changePositionTitle} changeResponsibilties={changeResponsibilties} changeJobDateStart={changeJobDateStart} changeJobDateEnd={changeJobDateEnd} edit={edit} toggleEdit={toggleEditExperience} editExperience={editExperience}/>
         <div id="divButton">
-            <button id="edit" onClick={editForm}>Edit</button>
-            <button id="submit" onClick={submitForm}>Submit</button>
+            {edit?(<button id="submit" onClick={submitForm}>Save</button>):(<button id="edit" onClick={editForm}>Edit</button>)
+            
+        }
         </div>
     </>
     )

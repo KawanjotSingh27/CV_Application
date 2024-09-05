@@ -1,23 +1,51 @@
+import editsvg from "../assets/edit.svg";
+import savesvg from "../assets/save.svg";
 
-function Experience({companyName,positionTitle,responsibilities,jobDateStart,jobDateEnd,changeCompanyName,changePositionTitle,changeResponsibilties,changeJobDateStart,changeJobDateEnd,edit}){
+
+function Experience({companyName,positionTitle,responsibilities,jobDateStart,jobDateEnd,changeCompanyName,changePositionTitle,changeResponsibilties,changeJobDateStart,changeJobDateEnd,edit,toggleEdit,editExperience}){
     if(edit){
-        return(
-            <div className="label">
-                <label htmlFor="companyName">Company Name: </label>
-                <input id="companyName" value={companyName} onChange={changeCompanyName}/><br/>
+        if(editExperience){
+            return(
+                <div id="experience">
+                    <p className="Title">Job Experience</p>
+                    <div className="label">
+                        <input id="companyName" className="experienceInput" placeholder="Company Name" value={companyName} onChange={changeCompanyName}/><br/>
+            
+                        <input id="positionTitle" className="experienceInput" placeholder="Position Title" value={positionTitle} onChange={changePositionTitle}/><br/>
+            
+                        <input id="responsiblities" size="100" className="experienceInput" placeholder="Job Responsiblities" value={responsibilities} onChange={changeResponsibilties}/><br/>
     
-                <label htmlFor="positionTitle">Position Title: </label>
-                <input id="positionTitle" value={positionTitle} onChange={changePositionTitle}/><br/>
+                        <input id="jobDateStart" type="date" className="experienceInput" value={jobDateStart} onChange={changeJobDateStart}/>
+                        <label htmlFor="jobDateEnd" id="toLabel"> To </label>
+                        <input id="jobDateEnd" type="date" className="experienceInput" value={jobDateEnd} onChange={changeJobDateEnd}/>
+                    </div>
+                    <p id="experienceError" className="error"></p>
+                    <img src={savesvg} className="savesvg" id="saveExperience" onClick={toggleEdit} alt="Save"/>
+                </div>
+                
+            )
+        }
+        else{
+            return(
+                <div id="experience">
+                    <p className="Title">Job Experience</p>
+                    <div className="label">
+                        <input id="companyName" className="experienceInput" placeholder="Company Name" value={companyName} onChange={changeCompanyName} disabled/><br/>
+            
+                        <input id="positionTitle" className="experienceInput" placeholder="Position Title" value={positionTitle} onChange={changePositionTitle} disabled/><br/>
+            
+                        <input id="responsiblities" size="100" className="experienceInput" placeholder="Job Responsiblities" value={responsibilities} onChange={changeResponsibilties} disabled/><br/>
     
-                <label htmlFor="responsiblities">Job Responsibilities: </label>
-                <input id="responsiblities" size="100" value={responsibilities} onChange={changeResponsibilties}/><br/>
-
-                <label htmlFor="jobDateStart">Job Date: </label>
-                <input id="jobDateStart" type="date" value={jobDateStart} onChange={changeJobDateStart}/>
-                <label htmlFor="jobDateEnd"> To </label>
-                <input id="jobDateEnd" type="date" value={jobDateEnd} onChange={changeJobDateEnd}/>
-            </div>
-        )
+                        <input id="jobDateStart" type="date" className="experienceInput" value={jobDateStart} onChange={changeJobDateStart}/>
+                        <label htmlFor="jobDateEnd" id="toLabel"> To </label>
+                        <input id="jobDateEnd" type="date" className="experienceInput" value={jobDateEnd} onChange={changeJobDateEnd}/>
+                    </div>
+                    <img src={editsvg} className="editsvg" id="editExperience" onClick={toggleEdit} alt="Edit"/>
+                </div>
+                
+            )
+        }
+        
     }
     else{
         return(

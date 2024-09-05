@@ -1,18 +1,40 @@
+import editsvg from "../assets/edit.svg";
+import savesvg from "../assets/save.svg";
 
-function General({name,email,number,changeName,changeEmail,changeNumber,edit}){
+
+function General({name,email,number,changeName,changeEmail,changeNumber,edit,toggleEdit,editPersonal}){
     if(edit){
-        return(
-            <div className="label">
-                <label htmlFor="name">Name: </label>
-                <input id="name" value={name} onChange={changeName}/><br/>
-    
-                <label htmlFor="email">Email: </label>
-                <input id="email" type="email" value={email} onChange={changeEmail}/><br/>
-    
-                <label htmlFor="number">Phone Number: </label>
-                <input id="number" value={number} onChange={changeNumber}/>
-            </div>
-        )
+        if(editPersonal){
+            return(
+                <div id="personal">
+                    <p className="Title">Personal Details</p>
+                    <div className="label">
+                        <input id="name" className="personalInput" placeholder="Name" value={name} onChange={changeName}/><br/>
+            
+                        <input id="email" className="personalInput" type="email" placeholder="Email" value={email} onChange={changeEmail}/><br/>
+            
+                        <input id="number" className="personalInput" placeholder="Phone Number" value={number} onChange={changeNumber}/>
+                    </div>
+                    <p id="personalError" className="error"></p>
+                    <img src={savesvg} className="savesvg" id="savePersonal" onClick={toggleEdit} alt="Save"/>
+                </div>
+            )
+        }
+        else{
+            return(
+                <div id="personal">
+                    <p className="Title">Personal Details</p>
+                    <div className="label">
+                        <input id="name" className="personalInput" placeholder="Name" value={name} onChange={changeName} disabled/><br/>
+            
+                        <input id="email" className="personalInput" type="email" placeholder="Email" value={email} onChange={changeEmail} disabled/><br/>
+            
+                        <input id="number" className="personalInput" placeholder="Phone Number" value={number} onChange={changeNumber} disabled/>
+                    </div>
+                    <img src={editsvg} className="editsvg" id="editPersonal" onClick={toggleEdit} alt="Edit"/>
+                </div>
+            )
+        }
     }
     else{
         return(
