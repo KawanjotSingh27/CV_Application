@@ -1,67 +1,93 @@
+import { useState } from "react";
 import editsvg from "../assets/edit.svg";
 import savesvg from "../assets/save.svg";
+import addsvg from "../assets/add.svg";
 
 
-function Experience({companyName,positionTitle,responsibilities,jobDateStart,jobDateEnd,changeCompanyName,changePositionTitle,changeResponsibilties,changeJobDateStart,changeJobDateEnd,edit,toggleEdit,editExperience}){
-    if(edit){
-        if(editExperience){
-            return(
-                <div id="experience">
-                    <p className="Title">Job Experience</p>
-                    <div className="label">
-                        <input id="companyName" className="experienceInput" placeholder="Company Name" value={companyName} onChange={changeCompanyName}/><br/>
-            
-                        <input id="positionTitle" className="experienceInput" placeholder="Position Title" value={positionTitle} onChange={changePositionTitle}/><br/>
-            
-                        <input id="responsiblities" size="100" className="experienceInput" placeholder="Job Responsiblities" value={responsibilities} onChange={changeResponsibilties}/><br/>
-    
-                        <input id="jobDateStart" type="date" className="experienceInput" value={jobDateStart} onChange={changeJobDateStart}/>
-                        <label htmlFor="jobDateEnd" id="toLabel"> To </label>
-                        <input id="jobDateEnd" type="date" className="experienceInput" value={jobDateEnd} onChange={changeJobDateEnd}/>
-                    </div>
-                    <p id="experienceError" className="error"></p>
-                    <img src={savesvg} className="savesvg" id="saveExperience" onClick={toggleEdit} alt="Save"/>
-                </div>
-                
-            )
+function Experience({edit,handleSaveExperience}){
+    const [jobs,setJobs]=useState([{companyName:"", positionTitle:"", responsibilities:"", jobDateStart:"", jobDateEnd:""}]);
+    const [isDisabled,setIsDisabled]=useState(false);
+    const [svg,setSvg]=useState(savesvg);
+
+    function addJob(){
+        setJobs([...jobs,{companyName:"", positionTitle:"", responsibilities:"", jobDateStart:"", jobDateEnd:""}]);
+    }
+
+    function inputChange(index,e){
+        const {id,value}=e.target;
+        const newJob=[...jobs];
+        newJob[index][id]=value;
+        setJobs(newJob);
+    }
+
+    function toggle_disable(){
+        handleSaveExperience();
+        setIsDisabled(!isDisabled);
+        toggle_svg();
+    }
+
+    function toggle_svg(){
+        if(svg==savesvg){
+            setSvg(editsvg);
         }
         else{
-            return(
-                <div id="experience">
-                    <p className="Title">Job Experience</p>
-                    <div className="label">
-                        <input id="companyName" className="experienceInput" placeholder="Company Name" value={companyName} onChange={changeCompanyName} disabled/><br/>
-            
-                        <input id="positionTitle" className="experienceInput" placeholder="Position Title" value={positionTitle} onChange={changePositionTitle} disabled/><br/>
-            
-                        <input id="responsiblities" size="100" className="experienceInput" placeholder="Job Responsiblities" value={responsibilities} onChange={changeResponsibilties} disabled/><br/>
-    
-                        <input id="jobDateStart" type="date" className="experienceInput" value={jobDateStart} onChange={changeJobDateStart}/>
-                        <label htmlFor="jobDateEnd" id="toLabel"> To </label>
-                        <input id="jobDateEnd" type="date" className="experienceInput" value={jobDateEnd} onChange={changeJobDateEnd}/>
-                    </div>
-                    <img src={editsvg} className="editsvg" id="editExperience" onClick={toggleEdit} alt="Edit"/>
-                </div>
-                
-            )
+            setSvg(savesvg);
         }
+    }
+
+    if(edit){
+        return(
+            <div id="experience">
+                <p className="Title">Job Experience</p>
+                <div className="label">
+                    {jobs.map((job,index)=>{
+                        return(
+                            <div key={index} className="card">
+                                <input id="companyName" className="experienceInput" placeholder="Company Name" value={job.companyName} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
         
+                                <input id="positionTitle" className="experienceInput" placeholder="Position Title" value={job.positionTitle} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
+
+                                <input id="responsibilities" size="100" className="experienceInput" placeholder="Job Responsiblities" value={job.responsibilities} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
+
+                                <input id="jobDateStart" type="date" className="experienceInput" value={job.jobDateStart} onChange={e=>inputChange(index,e)} disabled={isDisabled}/>
+                                <label htmlFor="jobDateEnd" id="toLabel"> To </label>
+                                <input id="jobDateEnd" type="date" className="experienceInput" value={job.jobDateEnd} onChange={e=>inputChange(index,e)} disabled={isDisabled}/>
+                            </div>
+                        )
+                    })}
+                </div>
+                <img src={addsvg} className="addsvg" id="addEducation" onClick={addJob} alt="Add"/>
+                <p id="experienceError" className="error"></p>
+                <img src={svg} className="svg" id="saveExperience" onClick={toggle_disable} alt="Save"/>
+            </div>
+        )
     }
     else{
         return(
-            <>
+            <div id="resume">
+                <div>
                 <div id="divTitle">
                     <p>Job Experience</p>
                 </div><hr/>
                 <div id="divInfo">
-                    <div>
-                        <p>{companyName}</p>
-                        <p>{positionTitle}</p>
-                    </div>
-                    <p>{jobDateStart} to {jobDateEnd}</p>
+                        {
+                            jobs.map((job,index)=>{
+                                return(
+                                    <div key={index} className="infoCard">
+                                        <div>
+                                            <p>{job.companyName}</p>
+                                            <p>{job.positionTitle}</p>
+                                            <p>{job.responsibilities}</p>
+                                        </div>
+                                        <p>{job.jobDateStart} to {job.jobDateEnd}</p>
+                                    </div>
+                                )
+                            })
+                        }
                 </div>
-                <p id="responsiblitiesInfo">{responsibilities}</p>
-            </>
+                </div>
+            </div>
+            
         )
     }
 }

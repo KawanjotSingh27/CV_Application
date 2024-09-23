@@ -77,9 +77,15 @@ body > div{
 
 #divInfo{
     display: flex;
+    flex-direction: column;
+    gap:40px;
 }
 
-#divInfo div{
+.infoCard{
+    display: flex;
+}
+
+.infoCard div{
     margin-right: auto;
 }
 
@@ -89,11 +95,11 @@ body > div{
     font-family: roboto-regular;
 }
 
-#divInfo div p:nth-child(2){
+#divInfo p{
     margin-top:8px;
 }
 
-#responsiblitiesInfo{
+#responsibilitiesInfo{
     font-size: 20px;
     font-family: roboto-light;
 }
@@ -126,7 +132,7 @@ body > div{
     font-family: roboto-regular;
 }
 
-#responsiblities{
+#responsibilities{
     font-size: 15px;
 }
 
@@ -136,38 +142,53 @@ img{
     cursor: pointer;
 }
 
-.editsvg{
-    margin-right: 10px;
-}
-
 #toLabel{
     font-size: 20px;
 }
 
 #personal{
     padding:10px;
-    border:8px solid rgb(27, 175, 175);
-    width:500px;
-    border-radius: 20px;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    width:fit-content;
     margin-bottom: 20px;
 }
 
 #education{
     padding:10px;
-    border:8px solid rgb(27, 175, 175);
-    width:500px;
-    border-radius: 20px;
+    width:fit-content;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
     margin-bottom: 20px;
 }
 
 #experience{
     padding:10px;
-    border:8px solid rgb(27, 175, 175);
-    width:1000px;
-    border-radius: 20px;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    width:fit-content;
 }
 
 .error{
     font-size: 10px;
     color:red;
+}
+
+#resume{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    margin:0px 350px;
+}
+
+.label{
+    display:flex;
+    flex-wrap: wrap;
+    gap:20px;
+}
+
+.card{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding:20px;
+}
+
+.addsvg{
+    margin-top: 20px;
 }

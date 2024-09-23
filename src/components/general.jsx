@@ -1,52 +1,66 @@
+import { useState } from "react";
 import editsvg from "../assets/edit.svg";
 import savesvg from "../assets/save.svg";
 
+function General({edit,handleSaveGeneral,errorGeneral,handleErrorGeneral}){
+    const [personal,setPersonal]=useState({name:"",email:"",number:""});
+    const [isDisabled,setIsDisabled]=useState(false);
+    const [svg,setSvg]=useState(savesvg);
+    const [error,setError]=useState("");
 
-function General({name,email,number,changeName,changeEmail,changeNumber,edit,toggleEdit,editPersonal}){
-    if(edit){
-        if(editPersonal){
-            return(
-                <div id="personal">
-                    <p className="Title">Personal Details</p>
-                    <div className="label">
-                        <input id="name" className="personalInput" placeholder="Name" value={name} onChange={changeName}/><br/>
-            
-                        <input id="email" className="personalInput" type="email" placeholder="Email" value={email} onChange={changeEmail}/><br/>
-            
-                        <input id="number" className="personalInput" placeholder="Phone Number" value={number} onChange={changeNumber}/>
-                    </div>
-                    <p id="personalError" className="error"></p>
-                    <img src={savesvg} className="savesvg" id="savePersonal" onClick={toggleEdit} alt="Save"/>
-                </div>
-            )
+    function inputChange(e){
+        const {id,value}=e.target;
+        setPersonal(personal=>({
+            ...personal,
+            [id]:value
+        }))
+    }
+
+    function toggle_disable(){
+        handleSaveGeneral();
+        setIsDisabled(!isDisabled);
+        toggle_svg();
+    }
+
+    function toggle_svg(){
+        if(svg==savesvg){
+            setSvg(editsvg);
         }
         else{
-            return(
-                <div id="personal">
-                    <p className="Title">Personal Details</p>
-                    <div className="label">
-                        <input id="name" className="personalInput" placeholder="Name" value={name} onChange={changeName} disabled/><br/>
-            
-                        <input id="email" className="personalInput" type="email" placeholder="Email" value={email} onChange={changeEmail} disabled/><br/>
-            
-                        <input id="number" className="personalInput" placeholder="Phone Number" value={number} onChange={changeNumber} disabled/>
-                    </div>
-                    <img src={editsvg} className="editsvg" id="editPersonal" onClick={toggleEdit} alt="Edit"/>
-                </div>
-            )
+            setSvg(savesvg);
         }
+    }
+
+    if(edit){
+        return(
+            <div id="personal">
+                <p className="Title">Personal Details</p>
+                <div className="label">
+                    <input id="name" className="personalInput" placeholder="Name" value={personal.name} onChange={inputChange} disabled={isDisabled}/><br/>
+        
+                    <input id="email" className="personalInput" type="email" placeholder="Email" value={personal.email} onChange={inputChange} disabled={isDisabled}/><br/>
+        
+                    <input id="number" className="personalInput" placeholder="Phone Number" value={personal.number} onChange={inputChange} disabled={isDisabled}/>
+                </div>
+                <p id="personalError" className="error"></p>
+                <img src={svg} className="svg" id="savePersonal" onClick={toggle_disable} alt="Save"/>
+            </div>
+        )
     }
     else{
         return(
-            <>
-            <div id="divName">
-                <p>{name}</p>
-            </div><hr/>
-            <div id="divContact">
-                <p>{email}</p>
-                <p>{number}</p>
+            <div>
+                <div id="resume">
+                <div id="divName">
+                    <p>{personal.name}</p>
+                </div><hr/>
+                <div id="divContact">
+                    <p>{personal.email}</p>
+                    <p>{personal.number}</p>
+                </div>
+                <p className="error"></p>
+                </div>
             </div>
-            </>
         )
     }
 }
