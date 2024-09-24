@@ -6,7 +6,6 @@ function General({edit,handleSaveGeneral,errorGeneral,handleErrorGeneral}){
     const [personal,setPersonal]=useState({name:"",email:"",number:""});
     const [isDisabled,setIsDisabled]=useState(false);
     const [svg,setSvg]=useState(savesvg);
-    const [error,setError]=useState("");
 
     function inputChange(e){
         const {id,value}=e.target;
@@ -42,7 +41,7 @@ function General({edit,handleSaveGeneral,errorGeneral,handleErrorGeneral}){
         
                     <input id="number" className="personalInput" placeholder="Phone Number" value={personal.number} onChange={inputChange} disabled={isDisabled}/>
                 </div>
-                <p id="personalError" className="error"></p>
+                <p id="personalError" className="error">{errorGeneral}</p>
                 <img src={svg} className="svg" id="savePersonal" onClick={toggle_disable} alt="Save"/>
             </div>
         )
@@ -51,14 +50,13 @@ function General({edit,handleSaveGeneral,errorGeneral,handleErrorGeneral}){
         return(
             <div>
                 <div id="resume">
-                <div id="divName">
-                    <p>{personal.name}</p>
-                </div><hr/>
-                <div id="divContact">
-                    <p>{personal.email}</p>
-                    <p>{personal.number}</p>
-                </div>
-                <p className="error"></p>
+                    <div id="divName">
+                        <p>{personal.name}</p>
+                    </div><hr/>
+                    <div id="divContact">
+                        <p>{personal.email}</p>
+                        <p>{personal.number}</p>
+                    </div>
                 </div>
             </div>
         )

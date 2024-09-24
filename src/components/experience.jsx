@@ -4,7 +4,7 @@ import savesvg from "../assets/save.svg";
 import addsvg from "../assets/add.svg";
 
 
-function Experience({edit,handleSaveExperience}){
+function Experience({edit,handleSaveExperience,errorExperience,handleErrorExperience}){
     const [jobs,setJobs]=useState([{companyName:"", positionTitle:"", responsibilities:"", jobDateStart:"", jobDateEnd:""}]);
     const [isDisabled,setIsDisabled]=useState(false);
     const [svg,setSvg]=useState(savesvg);
@@ -57,7 +57,7 @@ function Experience({edit,handleSaveExperience}){
                     })}
                 </div>
                 <img src={addsvg} className="addsvg" id="addEducation" onClick={addJob} alt="Add"/>
-                <p id="experienceError" className="error"></p>
+                <p id="experienceError" className="error">{errorExperience}</p>
                 <img src={svg} className="svg" id="saveExperience" onClick={toggle_disable} alt="Save"/>
             </div>
         )
@@ -66,25 +66,25 @@ function Experience({edit,handleSaveExperience}){
         return(
             <div id="resume">
                 <div>
-                <div id="divTitle">
-                    <p>Job Experience</p>
-                </div><hr/>
-                <div id="divInfo">
-                        {
-                            jobs.map((job,index)=>{
-                                return(
-                                    <div key={index} className="infoCard">
-                                        <div>
-                                            <p>{job.companyName}</p>
-                                            <p>{job.positionTitle}</p>
-                                            <p>{job.responsibilities}</p>
+                    <div id="divTitle">
+                        <p>Job Experience</p>
+                    </div><hr/>
+                    <div id="divInfo">
+                            {
+                                jobs.map((job,index)=>{
+                                    return(
+                                        <div key={index} className="infoCard">
+                                            <div>
+                                                <p>{job.companyName}</p>
+                                                <p>{job.positionTitle}</p>
+                                                <p>{job.responsibilities}</p>
+                                            </div>
+                                            <p>{job.jobDateStart} to {job.jobDateEnd}</p>
                                         </div>
-                                        <p>{job.jobDateStart} to {job.jobDateEnd}</p>
-                                    </div>
-                                )
-                            })
-                        }
-                </div>
+                                    )
+                                })
+                            }
+                    </div>
                 </div>
             </div>
             

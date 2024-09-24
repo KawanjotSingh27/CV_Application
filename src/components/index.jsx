@@ -11,6 +11,8 @@ function Main(){
     const [saveEducation,setSaveEducation]=useState(false);
     const [saveExperience,setSaveExperience]=useState(false);
     const [errorGeneral,setErrorGeneral]=useState("");
+    const [errorEducation,setErrorEducation]=useState("");
+    const [errorExperience,setErrorExperience]=useState("");
 
     function handleSaveGeneral(){
         setSaveGeneral(!saveGeneral);
@@ -24,14 +26,31 @@ function Main(){
         setSaveEducation(!saveEducation);
     }
 
+    const handleErrorEducation=(value)=>{
+        setErrorEducation(value);
+    }
+
     function handleSaveExperience(){
         setSaveExperience(!saveExperience);
+    }
+
+    const handleErrorExperience=(value)=>{
+        setErrorExperience(value);
     }
 
     function editForm(){
         if(edit==true){
             if(saveGeneral==false){
-                //edit p in general to show error to save general
+                handleErrorGeneral("Save your Personal information before proceeding");
+            }
+            else if(saveEducation==false){
+                handleErrorEducation("Save your Educational information before proceeding");
+            }
+            else if(saveExperience==false){
+                handleErrorExperience("Save your Job experience before proceeding");
+            }
+            else{
+                setEdit(!edit);
             }
         }
         else{
@@ -39,37 +58,11 @@ function Main(){
         }
     }
 
-    function submitForm(){
-        // const emailInput = document.querySelector('input[type="email"]');
-        // const personalError=document.querySelector("#personalError");
-        // const educationError=document.querySelector("#educationError");
-        // const experienceError=document.querySelector("#experienceError");
-    
-        // if (!emailInput.checkValidity()) {
-        //     emailInput.setCustomValidity("Invalid email address");
-        //     emailInput.reportValidity(); // This will show the validation error message
-        // } else {
-        //     emailInput.setCustomValidity(""); // Clear the custom error
-        // }
-        // if(editPersonal){
-        //     personalError.textContent="Please save the above section first";
-        // }
-        // if(editEducation){
-        //     educationError.textContent="Please save the above section first";
-        // }
-        // if(editExperience){
-        //     experienceError.textContent="Please save the above section first";
-        // }
-        // else{
-        //     setEdit(false);
-        // }
-    }
-
     return(
     <>
         <General edit={edit} handleSaveGeneral={handleSaveGeneral} errorGeneral={errorGeneral} handleErrorGeneral={handleErrorGeneral}/>
-        <Education edit={edit} handleSaveEducation={handleSaveEducation}/>
-        <Experience edit={edit} handleSaveExperience={handleSaveExperience}/>
+        <Education edit={edit} handleSaveEducation={handleSaveEducation} errorEducation={errorEducation} handleErrorEducation={handleErrorEducation}/>
+        <Experience edit={edit} handleSaveExperience={handleSaveExperience} errorExperience={errorExperience} handleErrorExperience={handleErrorExperience}/>
         <div id="divButton">
             {edit?(<button id="submit" onClick={editForm}>Save</button>):(<button id="edit" onClick={editForm}>Edit</button>)
         }

@@ -3,7 +3,7 @@ import editsvg from "../assets/edit.svg";
 import savesvg from "../assets/save.svg";
 import addsvg from "../assets/add.svg";
 
-function Education({edit,handleSaveEducation}){
+function Education({edit,handleSaveEducation,errorEducation,handleErrorEducation}){
     const [education,setEducation] = useState([{schoolName: "", studyTitle: "", studyDate: ""}]);
     const [isDisabled,setIsDisabled]=useState(false);
     const [svg,setSvg]=useState(savesvg);
@@ -53,7 +53,7 @@ function Education({edit,handleSaveEducation}){
                     })}
                 </div>
                 <img src={addsvg} className="addsvg" id="addEducation" onClick={addEducation} alt="Add"/>
-                <p id="educationError" className="error"></p>
+                <p id="educationError" className="error">{errorEducation}</p>
                 <img src={svg} className="svg" id="saveEducation" onClick={toggle_disable} alt="Save"/>
             </div>
         )
@@ -63,25 +63,25 @@ function Education({edit,handleSaveEducation}){
         return(
             <div id="resume">
                 <div>
-                <div id="divTitle">
-                    <p>Education</p>
-                </div><hr/>
-                <div id="divInfo">
-                        {
-                            education.map((edu,index)=>{
-                                return(
-                                    <div key={index} className="infoCard">
-                                        <div>
-                                            <p>{edu.schoolName}</p>
-                                            <p>{edu.studyTitle}</p>
+                    <div id="divTitle">
+                        <p>Education</p>
+                    </div><hr/>
+                    <div id="divInfo">
+                            {
+                                education.map((edu,index)=>{
+                                    return(
+                                        <div key={index} className="infoCard">
+                                            <div>
+                                                <p>{edu.schoolName}</p>
+                                                <p>{edu.studyTitle}</p>
+                                            </div>
+                                            <p>{edu.studyDate}</p>
                                         </div>
-                                        <p>{edu.studyDate}</p>
-                                    </div>
-                                )
-                            })
-                        }
+                                    )
+                                })
+                            }
+                    </div>
                 </div>
-            </div>
             </div>
             
         )
