@@ -2,6 +2,7 @@ import { useState } from "react";
 import editsvg from "../assets/edit.svg";
 import savesvg from "../assets/save.svg";
 import addsvg from "../assets/add.svg";
+import deletesvg from "../assets/delete.svg";
 
 function Education({edit,handleSaveEducation,errorEducation,handleErrorEducation}){
     const [education,setEducation] = useState([{schoolName: "", studyTitle: "", studyDate: ""}]);
@@ -10,6 +11,11 @@ function Education({edit,handleSaveEducation,errorEducation,handleErrorEducation
 
     function addEducation(){
         setEducation([...education,{schoolName:"",studyTitle:"",studyDate:""}]);
+    }
+
+    function deleteEducation(e){
+        const index=e.target.getAttribute("data-index");
+        setEducation(education.filter((edu,i)=>i!=index));
     }
 
     function inputChange(index,e){
@@ -41,13 +47,16 @@ function Education({edit,handleSaveEducation,errorEducation,handleErrorEducation
                 <div className="label">
                     {education.map((edu,index)=>{
                         return(
-                            <div key={index} className="card">
-                            <input id="schoolName" className="educationInput" placeholder="School Name" value={edu.schoolName} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
-        
-                            <input id="studyTitle" className="educationInput" placeholder="Title of Study" value={edu.studyTitle} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
+                            <>
+                                <div key={index} className="card">
+                                    <input id="schoolName" className="educationInput" placeholder="School Name" value={edu.schoolName} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
+                
+                                    <input id="studyTitle" className="educationInput" placeholder="Title of Study" value={edu.studyTitle} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
 
-                            <input id="studyDate" className="educationInput" type="date" value={edu.studyDate} onChange={e=>inputChange(index,e)} disabled={isDisabled}/>
-                            </div>
+                                    <input id="studyDate" className="educationInput" type="date" value={edu.studyDate} onChange={e=>inputChange(index,e)} disabled={isDisabled}/>
+                                </div>
+                                <img src={deletesvg} className="deletesvg" data-index={index} id="deleteEducation" onClick={deleteEducation} alt="Delete"/>
+                            </>
                         )
                         
                     })}

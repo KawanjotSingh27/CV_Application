@@ -2,6 +2,7 @@ import { useState } from "react";
 import editsvg from "../assets/edit.svg";
 import savesvg from "../assets/save.svg";
 import addsvg from "../assets/add.svg";
+import deletesvg from "../assets/delete.svg";
 
 
 function Experience({edit,handleSaveExperience,errorExperience,handleErrorExperience}){
@@ -11,6 +12,11 @@ function Experience({edit,handleSaveExperience,errorExperience,handleErrorExperi
 
     function addJob(){
         setJobs([...jobs,{companyName:"", positionTitle:"", responsibilities:"", jobDateStart:"", jobDateEnd:""}]);
+    }
+
+    function deleteJob(e){
+        const index=e.target.getAttribute("data-index");
+        setJobs(jobs.filter((job,i)=>i!=index));
     }
 
     function inputChange(index,e){
@@ -42,17 +48,20 @@ function Experience({edit,handleSaveExperience,errorExperience,handleErrorExperi
                 <div className="label">
                     {jobs.map((job,index)=>{
                         return(
-                            <div key={index} className="card">
-                                <input id="companyName" className="experienceInput" placeholder="Company Name" value={job.companyName} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
-        
-                                <input id="positionTitle" className="experienceInput" placeholder="Position Title" value={job.positionTitle} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
+                            <>
+                                <div key={index} className="card">
+                                    <input id="companyName" className="experienceInput" placeholder="Company Name" value={job.companyName} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
+            
+                                    <input id="positionTitle" className="experienceInput" placeholder="Position Title" value={job.positionTitle} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
 
-                                <input id="responsibilities" size="100" className="experienceInput" placeholder="Job Responsiblities" value={job.responsibilities} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
+                                    <input id="responsibilities" size="100" className="experienceInput" placeholder="Job Responsiblities" value={job.responsibilities} onChange={e=>inputChange(index,e)} disabled={isDisabled}/><br/>
 
-                                <input id="jobDateStart" type="date" className="experienceInput" value={job.jobDateStart} onChange={e=>inputChange(index,e)} disabled={isDisabled}/>
-                                <label htmlFor="jobDateEnd" id="toLabel"> To </label>
-                                <input id="jobDateEnd" type="date" className="experienceInput" value={job.jobDateEnd} onChange={e=>inputChange(index,e)} disabled={isDisabled}/>
-                            </div>
+                                    <input id="jobDateStart" type="date" className="experienceInput" value={job.jobDateStart} onChange={e=>inputChange(index,e)} disabled={isDisabled}/>
+                                    <label htmlFor="jobDateEnd" id="toLabel"> To </label>
+                                    <input id="jobDateEnd" type="date" className="experienceInput" value={job.jobDateEnd} onChange={e=>inputChange(index,e)} disabled={isDisabled}/>
+                                </div>
+                                <img src={deletesvg} className="deletesvg" data-index={index} id="deleteJob" onClick={deleteJob} alt="Delete"/>
+                            </>
                         )
                     })}
                 </div>
